@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <title>Plan Libur Semester</title>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="layout.css">
+  <link rel="stylesheet" href="komponen.css">
+  <link rel="stylesheet" href="tema.css">
+</head>
+
+<body>
+
+ <header>
+  <div class="header-baris">
+
+    <input type="checkbox" id="tema" class="pengalih-tema">
+    <label for="tema" class="tombol-tema">Tema gelap</label>
+
+    <h1>Plan Libur Semester</h1>
+
+    <nav aria-label="Navigasi utama">
+      <ul>
+        <li><a href="#plan">Plan Libur</a></li>
+        <li><a href="#kegiatan">Kegiatan</a></li>
+        <li><a href="#catatan">Catatan</a></li>
+      </ul>
+    </nav>
+
+  </div>
+</header>
+
+  <main>
+
+    <section id="plan">
+  <h2>Plan Libur Semester</h2>
+
+  <div class="katalog">
+
+    <article class="kartu">
+      <h3>Minggu/17</h3>
+      <p><strong>Tempat:</strong> Bandung</p>
+      <p><strong>Waktu yang Ditempuh:</strong> 6-7 jam</p>
+    </article>
+
+    <article class="kartu">
+      <h3>Selasa/26</h3>
+      <p><strong>Tempat:</strong> Solo</p>
+      <p><strong>Waktu yang Ditempuh:</strong> 2 jam</p>
+    </article>
+
+    <article class="kartu">
+      <h3>Selasa/2</h3>
+      <p><strong>Tempat:</strong> Mall</p>
+      <p><strong>Waktu yang Ditempuh:</strong> 1 jam</p>
+    </article>
+
+  </div>
+</section>
+
+    <figure>
+      <img src="liburan.jpg"
+           alt="___Pemandangan tempat liburan saya di Bandung___"
+           width="640" height="360" loading="lazy">
+      <figcaption>Pemandangan tempat liburan saya saat libur semester</figcaption>
+    </figure>
+
+
+    <section id="kegiatan">
+      <h2>Rencana Kegiatan</h2>
+
+      <form action="#" method="post">
+
+  <div class="form-kolom">
+
+    <label for="nama-kegiatan">Kegiatan:</label>
+    <input type="text" id="nama-kegiatan" name="nama-kegiatan" required>
+
+    <label for="tempat">Tempat:</label>
+    <input type="text" id="tempat" name="tempat" required>
+
+    <label for="tanggal">Tanggal:</label>
+    <input type="date" id="tanggal" name="tanggal" required>
+
+    <p class="pesan-galat">Mohon isi kolom yang diperlukan.</p>
+
+    <button type="submit">Simpan</button>
+
+  </div>
+
+</form>
+    </section>
+
+  </main>
+
+
+  <footer>
+    <p>Bening Affina, NIM: 25523250, 2026</p>
+  </footer>
+
+</body>
+</html>

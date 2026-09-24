@@ -1,0 +1,26 @@
+/* Ikut pengaturan sistem */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg:      #831843;
+    --color-fg:      #FDF2F8;
+    --color-surface: #500724;
+    --color-border:  #D97A98;
+    --color-primary: #F472B6;   /* Pink terang untuk tema gelap */
+    --color-danger:  #FF8A8A;
+    --color-focus:   #F472B6;
+    --shadow-1:      0 1px 3px rgba(0, 0, 0, .45);
+  }
+}
+
+.pengalih-tema { position: absolute; opacity: 0; pointer-events: none; }
+ 
+/* Pilihan manual lewat sakelar */
+:root:has(#tema:checked) {
+  --color-bg:      #831843;
+  --color-fg:      #FDF2F8;
+  --color-surface: #500724;
+  --color-border:  #9D174D;
+  --color-primary: #F472B6;
+  --color-danger:  #FF8A8A;
+  --color-focus:   #F472B6;
+}
