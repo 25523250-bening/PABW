@@ -1,0 +1,28 @@
+.pengalih-tema {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.tombol-tema {
+  cursor: pointer;
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.pengalih-tema:checked ~ h1,
+.pengalih-tema:checked ~ nav {
+  color: var(--color-fg);
+}
+
+.pengalih-tema:checked ~ nav a {
+  color: var(--color-primary);
+}
+
+body:has(#tema:checked) {
+  --color-bg: #831843;
+  --color-fg: #FDF2F8;
+  --color-surface: #500724;
+  --color-primary: #F472B6;
+  --color-border: #9D174D;
+}
