@@ -1,0 +1,24 @@
+:root {
+  --color-fg: #381121;
+  --color-bg: #FDF2F8;
+  --color-surface: #FFFFFF;
+  --color-primary: #DB2777;
+  --color-border: #D1A3B5;
+  --color-focus: #DB2777;
+  --color-danger: #DC2626;
+
+  --radius-md: .5rem;
+
+  --space-2: .5rem;
+  --space-3: .75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+
+  --text-sm: .875rem;
+  --text-md: 1rem;
+
+  --card-pad: 1rem;
+  --section-gap: 1.5rem;
+
+  --shadow-1: 0 1px 3px rgb(0 0 0 / .12);
+}
