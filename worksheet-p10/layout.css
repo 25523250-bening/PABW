@@ -1,0 +1,84 @@
+.page {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100dvh;
+}
+
+.navbar {
+  display: flex;
+  gap: var(--space-4);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.navbar h1 {
+  flex: 1;
+}
+
+.navbar nav {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.navbar nav ul {
+  display: flex;
+  gap: var(--space-4);
+  list-style: none;
+  padding: 0;
+}
+
+.navbar nav a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.navbar nav a:hover {
+  text-decoration: underline;
+}
+
+.isi {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-areas:
+    "utama utama"
+    "sisi bawah";
+  gap: var(--space-6);
+  padding-block: var(--space-6);
+}
+
+.sorotan {
+  grid-area: utama;
+}
+
+.papan {
+  grid-area: sisi;
+}
+
+.utama {
+  grid-area: bawah;
+}
+
+.catatan {
+  grid-column: span 2;
+}
+
+footer {
+  padding-block: var(--space-4);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-fg);
+  font-size: var(--text-sm);
+}
+
+@media (max-width: 40rem) {
+  .isi {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "utama"
+      "sisi"
+      "bawah";
+  }
+
+  .catatan {
+    grid-column: auto;
+  }
+}
