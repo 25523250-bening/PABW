@@ -53,18 +53,19 @@ function buatKartu(proyek) {
 }
 
 // Menampilkan daftar proyek
-function render(data) {
+// D.1: render menerima larik data dari API
+function render(daftarData) {
   daftar.textContent = "";
 
-  if (data.length === 0) {
-    kosong.textContent = "Belum ada proyek dalam kategori ini.";
+  if (daftarData.length === 0) {
+    kosong.textContent = "Belum ada data.";
     kosong.hidden = false;
     return;
   }
 
   kosong.hidden = true;
 
-  data.forEach((proyek) => {
+  daftarData.forEach((proyek) => {
     daftar.append(buatKartu(proyek));
   });
 }
