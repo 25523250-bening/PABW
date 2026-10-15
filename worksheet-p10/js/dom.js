@@ -1,4 +1,3 @@
-
 /*
  * PABW Pertemuan 9 dan 10
  * DOM, interaktivitas, dan data API
@@ -58,7 +57,7 @@ function render(daftarData) {
   daftar.textContent = "";
 
   if (daftarData.length === 0) {
-    kosong.textContent = "Belum ada data.";
+    kosong.textContent = "Belum ada proyek dalam kategori ini.";
     kosong.hidden = false;
     return;
   }
