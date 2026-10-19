@@ -1,17 +1,19 @@
 
 import {
-  render,
   periksaForm,
-  tampilkanBerhasil
+  tampilkanBerhasil,
+  render
 } from "./dom.js";
 
 import {
   state,
-  aturKategori
+  pilihKategori,
+  tambahFavorit
 } from "./state.js";
 
 export function pasangPendengar() {
   const filter = document.querySelector("#filter");
+  const daftar = document.querySelector("#daftar");
   const form = document.querySelector("#form-kegiatan");
 
   // Event untuk filter kategori
@@ -20,18 +22,21 @@ export function pasangPendengar() {
 
     if (!tombol || !filter.contains(tombol)) return;
 
-    aturKategori(tombol.dataset.kategori);
-
-    // Mengatur tombol yang sedang aktif
-    filter.querySelectorAll("button").forEach((item) => {
-      item.classList.toggle("aktif", item === tombol);
-    });
-
-    // Memperbarui tampilan proyek
+    pilihKategori(tombol.dataset.kategori);
     render(state);
   });
 
-  // Event untuk validasi form
+  // Event untuk tombol favorit
+  daftar.addEventListener("click", (event) => {
+    const tombol = event.target.closest(".favorit");
+
+    if (!tombol || !daftar.contains(tombol)) return;
+
+    tambahFavorit(Number(tombol.dataset.id));
+    render(state);
+  });
+
+  // Validasi form
   const inputNama = document.querySelector("#nama-kegiatan");
   const inputTempat = document.querySelector("#tempat");
   const inputTanggal = document.querySelector("#tanggal");
@@ -47,13 +52,9 @@ export function pasangPendengar() {
     event.preventDefault();
 
     if (!periksaForm()) {
-      if (inputNama.value.trim() === "") {
-        inputNama.focus();
-      } else if (inputTempat.value.trim() === "") {
-        inputTempat.focus();
-      } else if (inputTanggal.value.trim() === "") {
-        inputTanggal.focus();
-      }
+      if (inputNama.value.trim() === "") inputNama.focus();
+      else if (inputTempat.value.trim() === "") inputTempat.focus();
+      else if (inputTanggal.value.trim() === "") inputTanggal.focus();
 
       return;
     }

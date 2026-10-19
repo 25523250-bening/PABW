@@ -1,4 +1,5 @@
-import { state } from "./state.js";
+
+import { saring } from "./data.js";
 
 const daftar = document.querySelector("#daftar");
 const kosong = document.querySelector("#kosong");
@@ -20,38 +21,57 @@ export function tampilkanBerhasil(pesan) {
   pesanBerhasil.hidden = false;
 }
 
-function buatKartu(proyek) {
-  const item = document.createElement("li");
-  const judul = document.createElement("h3");
-  const tahun = document.createElement("p");
+export function buatKartu(proyek, favorit) {
+  const li = document.createElement("li");
+  li.className = "kartu";
 
+  const judul = document.createElement("h3");
   judul.textContent = proyek.judul;
+
+  const tahun = document.createElement("p");
   tahun.textContent = `Tahun: ${proyek.tahun}`;
 
-  item.append(judul, tahun);
-  return item;
+  const tombol = document.createElement("button");
+  tombol.className = "favorit";
+  tombol.dataset.id = proyek.id;
+  tombol.setAttribute("aria-label", `Favorit ${proyek.judul}`);
+  tombol.textContent = favorit.includes(proyek.id) ? "★" : "☆";
+
+  li.append(judul, tahun, tombol);
+  return li;
 }
 
-export function render(data = state) {
+export function tandaiTombolAktif(state) {
+  const filter = document.querySelector("#filter");
+
+  filter.querySelectorAll("button").forEach((tombol) => {
+    tombol.classList.toggle(
+      "aktif",
+      tombol.dataset.kategori === state.kategoriAktif
+    );
+  });
+}
+
+export function render(state) {
   daftar.textContent = "";
 
-  const daftarData = Array.isArray(data)
-    ? data
-    : data.daftarProyek.filter((proyek) => {
-        if (data.kategoriAktif === "semua") return true;
-        return proyek.kategori === data.kategoriAktif;
-      });
+  const daftarData = saring(
+    state.daftarProyek,
+    state.kategoriAktif
+  );
 
   if (daftarData.length === 0) {
     kosong.textContent = "Belum ada proyek dalam kategori ini.";
     kosong.hidden = false;
-    return;
+  } else {
+    kosong.hidden = true;
+
+    daftarData.forEach((proyek) => {
+      daftar.append(buatKartu(proyek, state.favorit));
+    });
   }
 
-  kosong.hidden = true;
-  daftarData.forEach((proyek) => {
-    daftar.append(buatKartu(proyek));
-  });
+  tandaiTombolAktif(state);
 }
 
 export function periksaForm() {
