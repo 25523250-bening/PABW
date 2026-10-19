@@ -1,36 +1,28 @@
-import { ambilProyek } from './api.js';
-
+import { ambilProyek } from "./api.js";
+import { isiProyek } from "./state.js";
 import {
-  render,
-  pasangFilter,
   aturMemuat,
-  tampilkanGalat
-} from './dom.js';
+  tampilkanGalat,
+  render
+} from "./dom.js";
+import { pasangPendengar } from "./events.js";
 
-// Data profil dari Pertemuan 8 boleh tetap di sini,
-// jika masih digunakan oleh halaman.
-
-// Memuat data proyek dari API
-async function muat() {
+async function mulai() {
+  pasangPendengar();
   aturMemuat(true);
 
   try {
     const daftar = await ambilProyek();
-
-    pasangFilter(daftar);
-    render(daftar);
+    isiProyek(daftar);
+    render();
   } catch (galat) {
     tampilkanGalat(
-      'Data gagal dimuat. Periksa koneksi, lalu muat ulang halaman.'
+      "Data gagal dimuat. Periksa koneksi, lalu muat ulang halaman."
     );
-
     console.error(galat.message);
   } finally {
     aturMemuat(false);
   }
 }
 
-// Dipanggil sekali saat halaman dibuka
-muat();
-
-export { muat };
+mulai();
