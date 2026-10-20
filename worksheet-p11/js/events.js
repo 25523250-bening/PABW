@@ -1,7 +1,6 @@
 import {
   periksaForm,
-  tampilkanBerhasil,
-  render
+  tampilkanBerhasil
 } from "./dom.js";
 
 import {
@@ -29,7 +28,6 @@ export function pasangPendengar() {
     if (!tombol || !filter.contains(tombol)) return;
 
     pilihKategori(tombol.dataset.kategori);
-    render(state);
   });
 
   // Event untuk tombol favorit
@@ -39,7 +37,6 @@ export function pasangPendengar() {
     if (!tombol || !daftar.contains(tombol)) return;
 
     tambahFavorit(Number(tombol.dataset.id));
-    render(state);
   });
 
   // Validasi form

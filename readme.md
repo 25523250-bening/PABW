@@ -20,3 +20,7 @@ Kriteria selesai: mengubah --color-primary di satu baris harus mengubah warna to
 Pada pengerjaan P8 ini saya menggunakan AI (ChatGPT) untuk membantu memahami instruksi worksheet, menjelaskan konsep JavaScript ES6+, serta membantu memahami penyebab error yang muncul di Console.
 
 Kode pada `app.js` saya tulis dan jalankan sendiri di VS Code menggunakan Live Server. Saya melakukan pengujian kode, memperbaiki error, mengecek hasil `map`, `filter`, `find`, dan `sort`, serta mengambil screenshot hasil pengujian berdasarkan pekerjaan saya sendiri.
+
+### Deklarasi Penggunaan AI
+
+Saya menggunakan AI untuk membantu memahami instruksi worksheet, menjelaskan fungsi kode, dan memeriksa kesalahan saat mengerjakan P11. Saya mengerjakan sendiri penulisan dan pengujian kode di VS Code, memeriksa hasilnya melalui browser, serta melakukan commit dan push ke GitHub.

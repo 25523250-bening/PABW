@@ -63,6 +63,7 @@ export function isiProyek(daftar) {
 export function pilihKategori(nilai) {
   state.kategoriAktif = nilai;
   simpan(state);
+  render(state);
 }
 
 export function tambahFavorit(id) {
@@ -75,6 +76,7 @@ export function tambahFavorit(id) {
   }
 
   simpan(state);
+  render(state);
 }
 
 export function aturMemuat(status) {
