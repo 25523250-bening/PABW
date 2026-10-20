@@ -22,13 +22,23 @@ export function simpan(state) {
   localStorage.setItem(KUNCI, JSON.stringify(isi));
 }
 
+
 export function muat() {
   try {
-    return JSON.parse(localStorage.getItem(KUNCI));
+    const isi = JSON.parse(localStorage.getItem(KUNCI));
+
+    if (isi?.versi !== VERSI) {
+      localStorage.removeItem(KUNCI);
+      return null;
+    }
+
+    return isi;
   } catch {
+    localStorage.removeItem(KUNCI);
     return null;
   }
 }
+
 
 export function pulihkan(isi) {
   if (!isi || isi.versi !== VERSI) return;
