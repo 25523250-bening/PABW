@@ -104,3 +104,52 @@ input:user-invalid {
   border: 2px solid var(--color-primary);
   font-weight: bold;
 }
+
+/* Tombol untuk mengatur ulang kategori dan favorit */
+#atur-ulang {
+  display: block;
+  width: fit-content;
+  margin-top: 12px;
+  padding: 10px 16px;
+  border: 1px solid var(--warna-utama, #DB2777);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--warna-utama, #DB2777);
+  cursor: pointer;
+}
+
+/* Tombol favorit pada kartu proyek */
+.kartu .favorit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  min-height: 36px;
+  padding: 6px 10px;
+  margin-top: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Ukuran foto liburan */
+.papan {
+  max-width: 420px;
+  margin: 24px auto;
+}
+
+
+.papan img {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 0;
+}
+
+.papan figcaption {
+  margin-top: 8px;
+  text-align: center;
+}
+
+

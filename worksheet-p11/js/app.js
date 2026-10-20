@@ -1,26 +1,34 @@
-
 import { ambilProyek } from "./api.js";
+
 import {
   isiProyek,
   aturMemuat,
   aturGalat,
+  muat,
+  pulihkan,
   state
 } from "./state.js";
+
 import {
   aturMemuat as tampilkanMemuat,
   tampilkanGalat,
   render
 } from "./dom.js";
+
 import { pasangPendengar } from "./events.js";
 
 async function mulai() {
   pasangPendengar();
+
+  // Memulihkan kategori dan favorit yang tersimpan
+  pulihkan(muat());
 
   aturMemuat(true);
   tampilkanMemuat(true);
 
   try {
     const daftar = await ambilProyek();
+
     isiProyek(daftar);
     render(state);
   } catch (galat) {

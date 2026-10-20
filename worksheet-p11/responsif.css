@@ -28,3 +28,14 @@
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+.papan {
+  max-width: 420px;
+  width: calc(100% - 32px);
+}
+
+.papan img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}

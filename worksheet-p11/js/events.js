@@ -1,4 +1,3 @@
-
 import {
   periksaForm,
   tampilkanBerhasil,
@@ -8,13 +7,20 @@ import {
 import {
   state,
   pilihKategori,
-  tambahFavorit
+  tambahFavorit,
+  aturUlang
 } from "./state.js";
 
 export function pasangPendengar() {
   const filter = document.querySelector("#filter");
   const daftar = document.querySelector("#daftar");
   const form = document.querySelector("#form-kegiatan");
+  const tombolAturUlang = document.querySelector("#atur-ulang");
+
+  // Event untuk tombol Atur ulang
+  tombolAturUlang.addEventListener("click", () => {
+    aturUlang();
+  });
 
   // Event untuk filter kategori
   filter.addEventListener("click", (event) => {
