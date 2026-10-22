@@ -1,117 +1,181 @@
+<script setup>
+import { ref, onMounted } from 'vue'
+import { profil } from './data.js'
+import { ambilProyek } from './api.js'
+
+import KepalaProfil from './components/KepalaProfil.vue'
+import TombolFilter from './components/TombolFilter.vue'
+import DaftarProyek from './components/DaftarProyek.vue'
+import FormKontak from './components/FormKontak.vue'
+
+const kategoriAktif = ref('semua')
+const daftarProyek = ref([])
+const favoritIds = ref([])
+const memuat = ref(false)
+const pesanGalat = ref('')
+
+const namaKegiatan = ref('')
+const tempat = ref('')
+const tanggal = ref('')
+
+const galatKegiatan = ref('')
+const galatTempat = ref('')
+const galatTanggal = ref('')
+const pesanBerhasil = ref('')
+
+onMounted(async () => {
+  memuat.value = true
+  pesanGalat.value = ''
+
+  try {
+    daftarProyek.value = await ambilProyek()
+  } catch (galat) {
+    pesanGalat.value =
+      'Data gagal dimuat. Periksa koneksi, lalu muat ulang halaman.'
+    console.error(galat)
+  } finally {
+    memuat.value = false
+  }
+})
+
+function pilihKategori(kategori) {
+  kategoriAktif.value = kategori
+}
+
+function aturUlang() {
+  kategoriAktif.value = 'semua'
+  favoritIds.value = []
+}
+
+function toggleFavorit(id) {
+  if (favoritIds.value.includes(id)) {
+    favoritIds.value = favoritIds.value.filter(
+      (favoritId) => favoritId !== id
+    )
+  } else {
+    favoritIds.value.push(id)
+  }
+}
+
+function simpanKegiatan() {
+  galatKegiatan.value = namaKegiatan.value.trim()
+    ? ''
+    : 'Kegiatan wajib diisi.'
+
+  galatTempat.value = tempat.value.trim()
+    ? ''
+    : 'Tempat wajib diisi.'
+
+  galatTanggal.value = tanggal.value
+    ? ''
+    : 'Tanggal wajib diisi.'
+
+  if (
+    galatKegiatan.value ||
+    galatTempat.value ||
+    galatTanggal.value
+  ) {
+    pesanBerhasil.value = ''
+    return
+  }
+
+  pesanBerhasil.value = 'Rencana kegiatan berhasil disimpan.'
+}
+</script>
+
 <template>
   <div class="page">
     <header class="navbar">
-      <input type="checkbox" id="tema" class="pengalih-tema" />
-      <label for="tema" class="tombol-tema">Tema gelap</label>
+      <input
+        type="checkbox"
+        id="tema"
+        class="pengalih-tema"
+      />
+      <label for="tema" class="tombol-tema">
+        Tema gelap
+      </label>
 
-  <h1>Plan Libur Semester</h1>
+      <h1>Plan Libur Semester</h1>
 
-  <nav aria-label="Navigasi utama">
-    <ul>
-      <li><a href="#plan">Plan Libur</a></li>
-      <li><a href="#kegiatan">Kegiatan</a></li>
-      <li><a href="#catatan">Catatan</a></li>
-    </ul>
-  </nav>
-</header>
+      <KepalaProfil :profil="profil" />
 
-<main class="isi">
-  <section id="plan" class="sorotan">
-    <h2>Daftar Proyek</h2>
+      <nav aria-label="Navigasi utama">
+        <ul>
+          <li><a href="#plan">Plan Libur</a></li>
+          <li><a href="#kegiatan">Kegiatan</a></li>
+          <li><a href="#catatan">Catatan</a></li>
+        </ul>
+      </nav>
+    </header>
 
-    <div id="filter" class="baris-filter">
-      <button type="button" data-kategori="semua" class="aktif">
-        Semua
-      </button>
-      <button type="button" data-kategori="selesai">
-        Selesai
-      </button>
-      <button type="button" data-kategori="proses">
-        Dalam Proses
-      </button>
-    </div>
-
-    <button id="atur-ulang" type="button">Atur ulang</button>
-
-    <p id="muat" hidden>Memuat data proyek...</p>
-
-    <ul id="daftar" class="galeri"></ul>
-
-    <p id="kosong" hidden>
-      Belum ada proyek dalam kategori ini.
-    </p>
-  </section>
-
-  <figure class="papan">
-    <img
-      src="/liburan.jpg"
-      alt="Pemandangan tempat liburan saya di Bandung"
-      width="640"
-      height="360"
-      loading="lazy"
-    />
-
-    <figcaption>
-      Pemandangan tempat liburan saya saat libur semester
-    </figcaption>
-  </figure>
-
-  <section id="kegiatan" class="utama">
-    <h2>Rencana Kegiatan</h2>
-
-    <form id="form-kegiatan" action="#" method="post" novalidate>
-      <div class="form-kolom">
-        <label for="nama-kegiatan">Kegiatan:</label>
-        <input
-          type="text"
-          id="nama-kegiatan"
-          name="nama-kegiatan"
-          required
-          aria-describedby="galat-kegiatan"
+    <main class="isi">
+      <section class="sorotan">
+        <TombolFilter
+          :kategori-aktif="kategoriAktif"
+          @pilih-kategori="pilihKategori"
         />
-        <p id="galat-kegiatan" class="pesan-galat" hidden></p>
 
-        <label for="tempat">Tempat:</label>
-        <input
-          type="text"
-          id="tempat"
-          name="tempat"
-          required
-          aria-describedby="galat-tempat"
-        />
-        <p id="galat-tempat" class="pesan-galat" hidden></p>
-
-        <label for="tanggal">Tanggal:</label>
-        <input
-          type="date"
-          id="tanggal"
-          name="tanggal"
-          required
-          aria-describedby="galat-tanggal"
-        />
-        <p id="galat-tanggal" class="pesan-galat" hidden></p>
-
-        <button type="submit" id="tombol-simpan" disabled>
-          Simpan
+        <button type="button" @click="aturUlang">
+          Atur ulang
         </button>
 
-        <p id="pesan-berhasil" hidden></p>
-      </div>
-    </form>
-  </section>
+        <DaftarProyek
+          :daftar-proyek="daftarProyek.filter(
+            (proyek) =>
+              kategoriAktif === 'semua' ||
+              proyek.kategori === kategoriAktif
+          )"
+          :memuat="memuat"
+          :pesan-galat="pesanGalat"
+          :favorit-ids="favoritIds"
+          @toggle-favorit="toggleFavorit"
+        />
+      </section>
 
-  <section id="catatan" class="catatan">
-    <h2>Catatan</h2>
-    <p>
-      Menikmati waktu libur semester dengan membuat rencana
-      kegiatan dan mengunjungi beberapa tempat.
-    </p>
-  </section>
-</main>
+      <figure class="papan">
+        <img
+          src="/liburan.jpg"
+          alt="Pemandangan tempat liburan saya di Bandung"
+          width="640"
+          height="360"
+          loading="lazy"
+        />
 
-<footer>
-  <p>Bening Affina, NIM: 25523250, 2026</p>
-</footer>
+        <figcaption>
+          Pemandangan tempat liburan saya saat libur semester
+        </figcaption>
+      </figure>
 
+      <FormKontak
+        :nama-kegiatan="namaKegiatan"
+        :tempat="tempat"
+        :tanggal="tanggal"
+        :galat-kegiatan="galatKegiatan"
+        :galat-tempat="galatTempat"
+        :galat-tanggal="galatTanggal"
+        :tombol-nonaktif="!(
+          namaKegiatan.trim() &&
+          tempat.trim() &&
+          tanggal
+        )"
+        :pesan-berhasil="pesanBerhasil"
+        @update:nama-kegiatan="namaKegiatan = $event"
+        @update:tempat="tempat = $event"
+        @update:tanggal="tanggal = $event"
+        @simpan="simpanKegiatan"
+      />
+
+      <section id="catatan" class="catatan">
+        <h2>Catatan</h2>
+        <p>
+          Menikmati waktu libur semester dengan membuat rencana
+          kegiatan dan mengunjungi beberapa tempat.
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <p>Bening Affina, NIM: 25523250, 2026</p>
+    </footer>
   </div>
 </template>
