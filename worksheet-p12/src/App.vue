@@ -1,18 +1,28 @@
+
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { profil } from './data.js'
 import { ambilProyek } from './api.js'
+import {
+  state,
+  simpan,
+  muat,
+  pulihkan,
+  isiProyek,
+} from './state.js'
 
 import KepalaProfil from './components/KepalaProfil.vue'
 import TombolFilter from './components/TombolFilter.vue'
 import DaftarProyek from './components/DaftarProyek.vue'
 import FormKontak from './components/FormKontak.vue'
 
-const kategoriAktif = ref('semua')
-const daftarProyek = ref([])
-const favoritIds = ref([])
-const memuat = ref(false)
-const pesanGalat = ref('')
+const tampil = computed(() =>
+  state.daftarProyek.filter(
+    (proyek) =>
+      state.kategoriAktif === 'semua' ||
+      proyek.kategori === state.kategoriAktif,
+  ),
+)
 
 const namaKegiatan = ref('')
 const tempat = ref('')
@@ -24,36 +34,41 @@ const galatTanggal = ref('')
 const pesanBerhasil = ref('')
 
 onMounted(async () => {
-  memuat.value = true
-  pesanGalat.value = ''
+  pulihkan(muat())
 
   try {
-    daftarProyek.value = await ambilProyek()
+    isiProyek(await ambilProyek())
   } catch (galat) {
-    pesanGalat.value =
+    state.pesanGalat =
       'Data gagal dimuat. Periksa koneksi, lalu muat ulang halaman.'
     console.error(galat)
   } finally {
-    memuat.value = false
+    state.sedangMemuat = false
   }
 })
 
+watch(
+  state,
+  (nilai) => simpan(nilai),
+  { deep: true },
+)
+
 function pilihKategori(kategori) {
-  kategoriAktif.value = kategori
+  state.kategoriAktif = kategori
 }
 
 function aturUlang() {
-  kategoriAktif.value = 'semua'
-  favoritIds.value = []
+  state.kategoriAktif = 'semua'
+  state.favorit = []
 }
 
 function toggleFavorit(id) {
-  if (favoritIds.value.includes(id)) {
-    favoritIds.value = favoritIds.value.filter(
-      (favoritId) => favoritId !== id
+  if (state.favorit.includes(id)) {
+    state.favorit = state.favorit.filter(
+      (favoritId) => favoritId !== id,
     )
   } else {
-    favoritIds.value.push(id)
+    state.favorit.push(id)
   }
 }
 
@@ -111,23 +126,23 @@ function simpanKegiatan() {
     <main class="isi">
       <section class="sorotan">
         <TombolFilter
-          :kategori-aktif="kategoriAktif"
+          :kategori-aktif="state.kategoriAktif"
           @pilih-kategori="pilihKategori"
         />
 
-        <button type="button" @click="aturUlang">
+        <button
+          id="atur-ulang"
+          type="button"
+          @click="aturUlang"
+        >
           Atur ulang
         </button>
 
         <DaftarProyek
-          :daftar-proyek="daftarProyek.filter(
-            (proyek) =>
-              kategoriAktif === 'semua' ||
-              proyek.kategori === kategoriAktif
-          )"
-          :memuat="memuat"
-          :pesan-galat="pesanGalat"
-          :favorit-ids="favoritIds"
+          :daftar-proyek="tampil"
+          :memuat="state.sedangMemuat"
+          :pesan-galat="state.pesanGalat"
+          :favorit-ids="state.favorit"
           @toggle-favorit="toggleFavorit"
         />
       </section>
@@ -140,7 +155,6 @@ function simpanKegiatan() {
           height="360"
           loading="lazy"
         />
-
         <figcaption>
           Pemandangan tempat liburan saya saat libur semester
         </figcaption>

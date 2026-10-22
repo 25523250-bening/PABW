@@ -1,88 +1,82 @@
+import { reactive } from 'vue'
 
-import { render } from "./dom.js";
+const KUNCI = 'pabw-p11'
+const VERSI = 2
 
-const KUNCI = "pabw-p11";
-const VERSI = 2;
-
-export const state = {
+export const state = reactive({
   daftarProyek: [],
-  kategoriAktif: "semua",
+  kategoriAktif: 'semua',
   favorit: [],
-  sedangMemuat: false,
-  pesanGalat: ""
-};
+  sedangMemuat: true,
+  pesanGalat: '',
+})
 
-export function simpan(state) {
+export function simpan(nilai = state) {
   const isi = {
     versi: VERSI,
-    kategoriAktif: state.kategoriAktif,
-    favorit: state.favorit
-  };
+    kategoriAktif: nilai.kategoriAktif,
+    favorit: nilai.favorit,
+  }
 
-  localStorage.setItem(KUNCI, JSON.stringify(isi));
+  localStorage.setItem(KUNCI, JSON.stringify(isi))
 }
-
 
 export function muat() {
   try {
-    const isi = JSON.parse(localStorage.getItem(KUNCI));
+    const tersimpan = localStorage.getItem(KUNCI)
+    if (!tersimpan) return null
+
+    const isi = JSON.parse(tersimpan)
 
     if (isi?.versi !== VERSI) {
-      localStorage.removeItem(KUNCI);
-      return null;
+      localStorage.removeItem(KUNCI)
+      return null
     }
 
-    return isi;
+    return isi
   } catch {
-    localStorage.removeItem(KUNCI);
-    return null;
+    localStorage.removeItem(KUNCI)
+    return null
   }
 }
 
-
 export function pulihkan(isi) {
-  if (!isi || isi.versi !== VERSI) return;
+  if (!isi || isi.versi !== VERSI) return
 
-  state.kategoriAktif = isi.kategoriAktif;
+  state.kategoriAktif = isi.kategoriAktif || 'semua'
   state.favorit = Array.isArray(isi.favorit)
     ? isi.favorit
-    : [];
+    : []
 }
 
 export function aturUlang() {
-  localStorage.removeItem(KUNCI);
-  state.kategoriAktif = "semua";
-  state.favorit = [];
-  render(state);
+  localStorage.removeItem(KUNCI)
+  state.kategoriAktif = 'semua'
+  state.favorit = []
 }
 
 export function isiProyek(daftar) {
-  state.daftarProyek = daftar;
+  state.daftarProyek = daftar
 }
 
 export function pilihKategori(nilai) {
-  state.kategoriAktif = nilai;
-  simpan(state);
-  render(state);
+  state.kategoriAktif = nilai
 }
 
 export function tambahFavorit(id) {
   if (state.favorit.includes(id)) {
     state.favorit = state.favorit.filter(
-      (favoritId) => favoritId !== id
-    );
+      (favoritId) => favoritId !== id,
+    )
   } else {
-    state.favorit = [...state.favorit, id];
+    state.favorit = [...state.favorit, id]
   }
-
-  simpan(state);
-  render(state);
 }
 
 export function aturMemuat(status) {
-  state.sedangMemuat = status;
+  state.sedangMemuat = status
 }
 
 export function aturGalat(pesan) {
-  state.pesanGalat = pesan;
+  state.pesanGalat = pesan
 }
