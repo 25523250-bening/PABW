@@ -24,3 +24,14 @@ Kode pada `app.js` saya tulis dan jalankan sendiri di VS Code menggunakan Live S
 ### Deklarasi Penggunaan AI
 
 Saya menggunakan AI untuk membantu memahami instruksi worksheet, menjelaskan fungsi kode, dan memeriksa kesalahan saat mengerjakan P11. Saya mengerjakan sendiri penulisan dan pengujian kode di VS Code, memeriksa hasilnya melalui browser, serta melakukan commit dan push ke GitHub.
+
+### Versi Perkakas P12
+
+- Node.js: v24.22.0
+- npm: 11.19.1
+
+### Deklarasi Penggunaan AI — P12
+
+Pada pengerjaan P12 ini saya menggunakan AI (ChatGPT) untuk membantu memahami instruksi worksheet, menjelaskan konsep Vue, komponen, props, dan penyimpanan data menggunakan localStorage, serta membantu memahami error yang muncul selama pengerjaan.
+
+Saya melakukan pengaturan proyek, menjalankan dan menguji aplikasi di VS Code, memeriksa penyimpanan data, menjalankan build produksi dan preview, serta membandingkan hasil pengujian sendiri.
