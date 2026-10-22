@@ -1,0 +1,169 @@
+.galeri {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: var(--space-4);
+}
+
+.kartu {
+  display: grid;
+  align-content: start;
+  min-height: 14rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-1);
+  padding: var(--card-pad);
+}
+
+.kartu__isi {
+  min-width: 0;
+}
+
+.kartu__judul {
+  overflow-wrap: anywhere;
+}
+
+.kartu__kaki {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.papan {
+  margin: 0;
+}
+
+.papan img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.papan figcaption {
+  margin-top: var(--space-2);
+}
+
+.form-kolom {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+label {
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+input,
+select,
+textarea {
+  font: inherit;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-fg);
+  min-width: 0;
+}
+
+button {
+  font: inherit;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  background: var(--color-primary);
+  color: var(--color-surface);
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+input:user-invalid {
+  border-color: var(--color-danger);
+  border-width: 2px;
+}
+
+.pesan-galat {
+  display: none;
+  color: var(--color-danger);
+  font-size: var(--text-sm);
+}
+
+.form-kolom:has(input:user-invalid) .pesan-galat {
+  display: block;
+}
+
+/* Tombol filter yang sedang dipilih */
+.baris-filter button.aktif {
+  background-color: var(--color-primary);
+  color: white;
+  border: 2px solid var(--color-primary);
+  font-weight: bold;
+}
+
+/* Tombol untuk mengatur ulang kategori dan favorit */
+#atur-ulang {
+  display: block;
+  width: fit-content;
+  margin-top: 12px;
+  padding: 10px 16px;
+  border: 1px solid var(--warna-utama, #DB2777);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--warna-utama, #DB2777);
+  cursor: pointer;
+}
+
+/* Tombol favorit pada kartu proyek */
+.kartu .favorit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  min-height: 36px;
+  padding: 6px 10px;
+  margin-top: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Ukuran foto liburan */
+.papan {
+  max-width: 420px;
+  margin: 24px auto;
+}
+
+
+.papan img {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 0;
+}
+
+.papan figcaption {
+  margin-top: 8px;
+  text-align: center;
+}
+
+#filter.baris-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+#filter.baris-filter button {
+  display: inline-block;
+  flex: 0 0 auto;
+  width: auto;
+  margin: 0;
+}
+
+

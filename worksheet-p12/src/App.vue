@@ -1,7 +1,117 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <HelloWorld />
+  <div class="page">
+    <header class="navbar">
+      <input type="checkbox" id="tema" class="pengalih-tema" />
+      <label for="tema" class="tombol-tema">Tema gelap</label>
+
+  <h1>Plan Libur Semester</h1>
+
+  <nav aria-label="Navigasi utama">
+    <ul>
+      <li><a href="#plan">Plan Libur</a></li>
+      <li><a href="#kegiatan">Kegiatan</a></li>
+      <li><a href="#catatan">Catatan</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="isi">
+  <section id="plan" class="sorotan">
+    <h2>Daftar Proyek</h2>
+
+    <div id="filter" class="baris-filter">
+      <button type="button" data-kategori="semua" class="aktif">
+        Semua
+      </button>
+      <button type="button" data-kategori="selesai">
+        Selesai
+      </button>
+      <button type="button" data-kategori="proses">
+        Dalam Proses
+      </button>
+    </div>
+
+    <button id="atur-ulang" type="button">Atur ulang</button>
+
+    <p id="muat" hidden>Memuat data proyek...</p>
+
+    <ul id="daftar" class="galeri"></ul>
+
+    <p id="kosong" hidden>
+      Belum ada proyek dalam kategori ini.
+    </p>
+  </section>
+
+  <figure class="papan">
+    <img
+      src="/liburan.jpg"
+      alt="Pemandangan tempat liburan saya di Bandung"
+      width="640"
+      height="360"
+      loading="lazy"
+    />
+
+    <figcaption>
+      Pemandangan tempat liburan saya saat libur semester
+    </figcaption>
+  </figure>
+
+  <section id="kegiatan" class="utama">
+    <h2>Rencana Kegiatan</h2>
+
+    <form id="form-kegiatan" action="#" method="post" novalidate>
+      <div class="form-kolom">
+        <label for="nama-kegiatan">Kegiatan:</label>
+        <input
+          type="text"
+          id="nama-kegiatan"
+          name="nama-kegiatan"
+          required
+          aria-describedby="galat-kegiatan"
+        />
+        <p id="galat-kegiatan" class="pesan-galat" hidden></p>
+
+        <label for="tempat">Tempat:</label>
+        <input
+          type="text"
+          id="tempat"
+          name="tempat"
+          required
+          aria-describedby="galat-tempat"
+        />
+        <p id="galat-tempat" class="pesan-galat" hidden></p>
+
+        <label for="tanggal">Tanggal:</label>
+        <input
+          type="date"
+          id="tanggal"
+          name="tanggal"
+          required
+          aria-describedby="galat-tanggal"
+        />
+        <p id="galat-tanggal" class="pesan-galat" hidden></p>
+
+        <button type="submit" id="tombol-simpan" disabled>
+          Simpan
+        </button>
+
+        <p id="pesan-berhasil" hidden></p>
+      </div>
+    </form>
+  </section>
+
+  <section id="catatan" class="catatan">
+    <h2>Catatan</h2>
+    <p>
+      Menikmati waktu libur semester dengan membuat rencana
+      kegiatan dan mengunjungi beberapa tempat.
+    </p>
+  </section>
+</main>
+
+<footer>
+  <p>Bening Affina, NIM: 25523250, 2026</p>
+</footer>
+
+  </div>
 </template>
